@@ -1,16 +1,9 @@
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
     header, body {
         min-width: auto;
         padding-left: 0px;
         padding-top: 0px;
     }
-
-html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 * {
@@ -21,163 +14,294 @@ html {
     scroll-behavior: smooth
 }
 
+
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    body {
+        background: url(https://i.imgur.com/uf0hyyP.jpeg);
+        background-color: #002533;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        background: url(https://i.imgur.com/uf0hyyP.jpeg);
+        background-color: #002533;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 1200px) {
+    body {
+        background: url(https://i.imgur.com/uf0hyyP.jpeg);
+        background-color: #002533;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+    }
+}
+
+.container {
+    display: block;
+}
+
+.section {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; /* Ou qualquer largura desejada */
+  }
+
 /* Works on Firefox */
 * {
     scrollbar-width: thin;
     scrollbar-color: #f5c054 transparent;
-  }
+}
   
   /* Works on Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
     width: 12px;
-  }
+}
   
   *::-webkit-scrollbar-track {
     background: #f5c054;
-  }
+}
   
   *::-webkit-scrollbar-thumb {
     background-color: #f5c054;
     border-radius: 20px;
     border: 3px solid #f5c054;
-  }
-  
-  
-
-
-.container {
-    display: inline;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
 }
+
+/* TOPO DO SITE */
+
 
 .distintivostopo {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    padding: 20px; /* Adiciona espaço ao redor */
+    margin-bottom: 0px; /* Adiciona margem inferior */
+    margin-top: 45px;
+}
+
+.logos-container {
+    display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    padding-top: 75px;
-    max-width: 100%;
-    gap: 50px;
+    gap: 40px; /* Espaçamento entre os elementos */
 }
 
-.logoeb {
-    max-width: 120px;
-    height: auto;
-    margin-right: 10px;
-}
-
+.logoeb,
 .logog20 {
-    max-width: 220px;
-    height: auto;
-    margin-right: 10px;
+    max-height: 140px; /* Limite máximo de altura para garantir responsividade */
+    height: auto; /* Mantém a proporção da imagem */
+    width: auto;
 }
 
 .linhadivisoriatopo {
-    display: inline;
-    flex-wrap: wrap;
-    height: 160px;
-    border-left: 4px solid #ffffff;
-    opacity: 20%;
-    
+    height: 160px; /* Alinha a altura com os logos */
+    border-left: 3px solid #ffffff;
+    opacity: 0.2;
 }
 
+/* Media query para telas menores */
+@media (max-width: 600px) {
+    .logos-container {
+        gap: 10px; /* Reduz o espaçamento entre os elementos */
+        margin-bottom: 0px; /* Adiciona margem inferior */
 
-h1 {
-    color: aliceblue;
+    }
+
+    .logoeb,
+    .logog20 {
+        max-height: 80px; /* Reduz o tamanho máximo dos logos */
+    }
+
+    .linhadivisoriatopo {
+        height: 100px; /* Ajusta a altura da linha divisória */
+        border-left: 2px solid #ffffff; /* Reduz a espessura da linha */
+    }
+}
+
+@media (max-width: 1200px) {
+    .logos-container {
+        gap: 10px; /* Reduz o espaçamento entre os elementos */
+        margin-bottom: 0px; /* Adiciona margem inferior */
+
+    }
+
+    .logoeb,
+    .logog20 {
+        max-height: 80px; /* Reduz o tamanho máximo dos logos */
+    }
+
+    .linhadivisoriatopo {
+        height: 100px; /* Ajusta a altura da linha divisória */
+        border-left: 2px solid #ffffff; /* Reduz a espessura da linha */
+    }
+}
+
+.container-titulos {
+    display: block; /* Faz o elemento quebrar linha */
+}
+
+.container-subtitulo {
+    margin: 1vw auto 5vw;
+}
+
+.container-subtitulo span {
+    font-weight: 600;
+    line-height: 0;
+    display: block;
+    text-align: center; /* Alinhar o texto ao centro */
+}
+
+h1, h2 {
     text-align: center;
+    color: aliceblue;
     text-transform: uppercase;
-    font-size: 100px;
-    padding-top: 50px;
+    padding-top: 2vw; /* Espaçamento superior */
     color: #f5c054;
     font-style: normal;
-    font-weight: 600;
-    line-height: 100%;
-    text-shadow: 2px 2px 275px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 275px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+}
+
+h1 {
+    font-size: 5.2vw; /* Tamanho de fonte relativo à largura da tela */
+    line-height: 1;
 }
 
 h2 {
-    color: aliceblue;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 50px;
-    padding-top: 50px;
-    color: #f5c054;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 100%;
-    text-shadow: 2px 2px 275px rgba(0, 0, 0, 0.5);
+    font-size: 2.5vw; /* Tamanho de fonte relativo à largura da tela */
+    line-height: 1;
 }
 
 .ciclotitulo1a {
     font-weight: 800;
+    width: auto;
+    height: 70%;
 }
-.ciclotitulo1, .ciclotitulo2, .ciclotitulo3 {
-    margin-right: 10px;
+
+.ciclotitulo {
+    font-weight: 600;
+    margin: 0;
+    width: auto;
+    height: 70%;
+}
+
+/* Media query para telas menores */
+@media (max-width: 600px) {
+    .container-titulos {
+        gap: 10px; /* Reduz o espaçamento entre os contêineres de título */
+        margin-bottom: 10px; /* Adiciona margem inferior */
+    }
+
+    .container-titulo {
+        text-align: center; /* Centraliza o texto dos títulos */
+    }
+
+    .container-subtitulo {
+        text-align: center; /* Centraliza o texto dos subtítulos */
+        margin: 1em auto 1em;
+    }
+
+    .ciclotitulo1a {
+        font-size: 1.5em; /* Ajusta o tamanho da fonte do primeiro título */
+    }
+
+    .ciclotitulo {
+        font-size: 1.5em; /* Ajusta o tamanho da fonte dos demais títulos */
+    }
+}
+
+@media (max-width: 1200px) {
+    .container-titulos {
+        gap: 10px; /* Reduz o espaçamento entre os contêineres de título */
+        margin-bottom: 10px; /* Adiciona margem inferior */
+    }
+
+    .container-titulo {
+        text-align: center; /* Centraliza o texto dos títulos */
+    }
+
+    .container-subtitulo {
+        text-align: center; /* Centraliza o texto dos subtítulos */
+        margin: 1em auto 1em;
+    }
+
+    .ciclotitulo1a {
+        font-size: 1.5em; /* Ajusta o tamanho da fonte do primeiro título */
+    }
+
+    .ciclotitulo {
+        font-size: 1.5em; /* Ajusta o tamanho da fonte dos demais títulos */
+    }
 }
 
 
-body {
-    background: url(https://i.imgur.com/uf0hyyP.jpeg);
-    background-position: center top;
-    background-size: 100% auto;
-    min-height: auto;
-    background-repeat: no-repeat;
-    background-color: #002533;
-}
-
-section {
-    scroll-snap-align: start;
-    height: auto;
-    display: inline-block;
-    position: relative;
-    text-align: center;
-    margin: 50px auto;
-}
-
-.section-quebra-linha {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90%;
-}
-
-.section-quebra-linha-table {
-    display: flex;
-    width: 90%;
+.container-geral{
+    display: inline;
     justify-content: center;
+    align-items: center;
 }
 
-.menu1, .menu2, .menu3 {
+.btn-geral {
     display: flex;
     justify-content: center;
-    width: 20%;
-    margin: 60px auto;
+    margin: 2vw auto 5.5vw; /* Espaçamento superior e inferior em relação à largura da tela */
 }
 
-.menu1 a, .menu2 a {
-    font-size: 20px;
+.btn-geral a {
+    font-size: 1.1vw; /* Tamanho de fonte relativo à largura da tela */
     text-decoration: none;
     cursor: pointer;
-    padding: 5px 20px;
-    border-radius: 20px;
+    padding: 0.25vw 1vw; /* Espaçamento interno em relação à largura da tela */
+    border-radius: 2vw; /* Raio do border-radius em relação à largura da tela */
     border: none;
     color: white;
     background-color: #f5c054;
-
 }
 
-.menu1 a:hover, .menu2 a:hover{
+.btn-geral a:hover {
     color: #f5c054;
     background-color: white;
     transition: 0.4s;
 }
 
+/* Media query para telas menores */
+@media (max-width: 600px) {
+    .btn-geral a {
+        font-size: 2vw; /* Tamanho de fonte responsivo */
+        padding: 1vw 3vw; /* Espaçamento interno responsivo */
+        border-radius: 10vw; /* Raio do border-radius responsivo */
+    }
+}
+
+@media (max-width: 1200px) {
+    .btn-geral a {
+        font-size: 2.5vw; /* Tamanho de fonte responsivo */
+        padding: 0.3vw 1vw; /* Espaçamento interno responsivo */
+        border-radius: 10vw; /* Raio do border-radius responsivo */
+    }
+}
+
+/* LINHAS DIVISÓRIAS GERAIS */
+
 .linhadivisoriabody {
     display: block;
     position: relative;
-    margin: 15px auto;
+    margin: 35px auto;
     width: 90%;
     max-width: 1800px;
     height: 5px;
@@ -199,7 +323,7 @@ section {
     display: block;
     position: relative;
     margin: 15px auto;
-    width: 100%;
+    width: 50%;
     height: 5px;
     background-color: #ffffff;
     opacity: 20%;
@@ -213,61 +337,203 @@ section {
     text-align: center;
 }
 
+.linhadivisoriatexto-2 {
+    display: flex;
+    position: relative;
+    margin: 45px auto;
+    width: 90%;
+    text-align: center;
+}
+
+
+/*//////////////////////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////////////////////*/
+
+/* SOBRE O XXIX CICLO DE ESTUDOS ESTRATÉGICOS */
+
 .sobre {
     display: flex;
     flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.sobre-logo-ciclo {
+    max-width: 30%; /* Alterado para 100% para se ajustar à largura da tela */
+    margin: 0 auto;
+    padding: 5vw; /* Utilizei vw para tornar o padding responsivo */
+}
+
+.sobre-o-ciclo {
+    width: 100%;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.h1-sobre {
+    color: aliceblue;
+    font-size: 1.8vw; /* Ajustado para uma fonte maior e responsiva */
+    font-weight: 700;
+    text-shadow: 0.2vw 0.2vw 4vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.h2-sobre {
+    color: aliceblue;
+    font-size: 1.2vw; /* Ajustado para uma fonte maior e responsiva */
+    font-weight: 600;
+    width: 100%;
+    text-shadow: 0.2vw 0.2vw 4vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+}
+
+.h3-sobre {
+    color: aliceblue;
+    font-size: 1vw; /* Ajustado para uma fonte maior e responsiva */
+    font-weight: 300;
+    width: 100%;
+    margin: 1vw auto;
+    text-shadow: 0.2vw 0.2vw 4vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+}
+
+
+@media (max-width: 600px) {
+    .sobre {
+        flex-direction: column; /* Altera para coluna em telas menores */
+        align-items: center; /* Centraliza os itens na coluna */
+        width: 85%; /* Utiliza toda a largura disponível */
+    }
+
+    .sobre-logo-ciclo {
+        max-width: 40%; /* Ajusta a largura máxima para ocupar toda a largura da tela */
+        margin: 0 auto;
+        padding: 5vw; /* Utilizei vw para tornar o padding responsivo */
+    }
+
+    .sobre-o-ciclo {
+        width: 100%;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    .h1-sobre {
+        font-size: 4vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
+        font-weight: 700;
+        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+        text-transform: uppercase;
+    }
+
+    .h2-sobre {
+        font-size: 2.3vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
+        font-weight: 600;
+        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    }
+
+    .h3-sobre {
+        font-size: 2vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
+        font-weight: 300;
+        margin: 1vw auto;
+        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    }
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////////////////////*/
+
+/* MODERADORES E PALESTRANTES*/
+
+
+.sobre-inline {
     width: 90%;
     height: auto;
     margin: 0 auto;
 }
 
-.sobre-inline {
-    display: inline;
-    flex-wrap: wrap;
-    width: 100%;
-    height: auto;
+.logos-de-apoio {
+    display: grid;
+    grid-row: auto;
     margin: 0 auto;
-}
-
-.sobre-duplo {
-    display: flex;
     justify-content: center;
-    padding-bottom: 40px;
+    align-items: center;
 }
 
-.sobre-imm, .sobre-eceme{
-    width: 100%;
+.sobre-logos-apoio,.sobre-logos-apoio-pessoas-2-colunas, .sobre-logos-apoio-pessoas-3-colunas, .sobre-logos-apoio-pessoas-4-colunas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Espaço entre os elementos */
+    margin-top: 20px;
 }
 
-.h1-sobre {
-    color: aliceblue;
-    font-size: 30px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    text-transform: uppercase;
-    font-weight: 700;
-    width: 100%;
+.moderadores, .palestrantes {
+    flex: 0 1 calc(20% - 10px); /* Define a largura de cada moderador com espaço entre eles */
+    margin-bottom: 20px; /* Espaçamento entre as linhas */
+    margin-top: 20px; /* Espaçamento entre as linhas */
 }
 
-.h2-sobre, .h3-sobre {
-    color: aliceblue;
-    font-size: 20px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    width: 100%;
+@media screen and (max-width: 900px) {
+    .moderadores, .palestrantes {
+        flex: 0 1 calc(50% - 20px); /* Quando a largura da tela for menor, 2 moderadores por linha */
+    }
+
+    .linhadivisoriasociais {
+        display: block;
+        position: relative;
+        margin: 15px auto;
+        width: 50%;
+        height: 5px;
+        background-color: #ffffff;
+        opacity: 20%;
+    }
 }
 
-.sobre-conteudo {
+@media screen and (max-width: 700px) {
+    .moderadores, .palestrantes {
+        flex: 0 2 calc(40% - 20px); /* Quando a largura da tela for ainda menor, 1 moderador por linha */
+    }
+
+    .linhadivisoriasociais {
+        display: block;
+        position: relative;
+        margin: 15px auto;
+        width: 50%;
+        height: 5px;
+        background-color: #ffffff;
+        opacity: 20%;
+    }
+}
+
+
+.logos-de-apoio p, .palestrantes p, .moderadores p {
     color: aliceblue;
     font-size: 16px;
     font-weight: 500;
     text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
     text-align: justify;
     font-weight: 200;
-    padding: 10px;
-    height: auto;
-    width: 100%;
+    text-align: center;
+    padding-top: 10px;
 }
+
+
+
+/*//////////////////////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////////////////////*/
+
+/* SOBRE O IMM E A ECEME */
+
+
+
+
+.sobre-imm, .sobre-eceme{
+    display: flex;
+    flex-direction: column;
+    column-count: 2;
+    align-items: center;
+    text-align: center;
+}
+
 
 .realizacaoimm p {
     color: #c9fff2;
@@ -280,79 +546,101 @@ section {
     padding-top: 20px;
 }
 
-.sobre-logo {
-    display: flex;
-    height: auto;
-    margin: 0 auto;
-}
-
 .sobre-logo-cont {
-    height: 350px;
+    display: flex;
+    width: 100%;
+    height: auto;
     padding: 20px;
     margin-bottom: 20px;
     justify-content: center;
     align-items: center;
 }
 
-.sobre-logo-ciclo {
-    display: flex;
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 30px;
+.sobre-logo-imm {
+    width: 350px; /* Largura automática */
+    height: auto;
 }
 
-.sobre-duplo {
-    display: flex;
-    width: 100% ;
-    gap: 0 80px;
+.sobre-logo-eceme{
+    width: 150px; /* Largura automática */
+    height: auto;
 }
+
+
+.sobre-o-ciclo{
+    width: 100%;
+    height: 90%;
+}
+
+@media (max-width: 600px) {
+    .sobre-imm, .sobre-eceme {
+        flex-direction: column; /* Altera para coluna em telas menores */
+        align-items: center; /* Centraliza os itens na coluna */
+        width: 85%; /* Utiliza toda a largura disponível */
+    }
+
+    .sobre-logo-ciclo {
+        max-width: 40%; /* Ajusta a largura máxima para ocupar toda a largura da tela */
+        margin: 0 auto;
+        padding: 5vw; /* Utilizei vw para tornar o padding responsivo */
+    }
+
+    .sobre-o-ciclo {
+        width: 100%;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    .h1-sobre {
+        font-size: 4vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
+        font-weight: 700;
+        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+        text-transform: uppercase;
+    }
+
+    .h2-sobre {
+        font-size: 2.3vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
+        font-weight: 600;
+        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    }
+
+    .h3-sobre {
+        font-size: 2vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
+        font-weight: 300;
+        margin: 1vw auto;
+        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    }
+
+    .sobre-logo-imm {
+        width: 200px; /* Largura automática */
+        height: auto;
+    }
+    
+    .sobre-logo-eceme{
+        width: 80px; /* Largura automática */
+        height: auto;
+    }
+}
+
+/*//////////////////////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////////////////////*/
+
+/* LOGOS REALIZAÇÃO E APOIO */
+
 
 .sobre-logos-apoio {
     display: flex;
-    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     margin-bottom: 30px;
     gap: 80px;
 }
 
-.sobre-logos-apoio-pessoas-3-colunas {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin: 30px auto;
-}
-
-.sobre-logos-apoio-pessoas-4-colunas {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin: 30px;
-}
-
-.logos-de-apoio, .palestrantes, .moderadores {
-    display: inline;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.logos-de-apoio p, .palestrantes p, .moderadores p {
-    color: aliceblue;
-    font-size: 26px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    text-align: justify;
-    font-weight: 200;
-    text-align: center;
-    padding-top: 10px;
-}
 
 .logos-img-pessoas img {
     max-width: 100%;
-    width: 120px;
+    width: 100px;
     height: auto;
 }
 
@@ -365,7 +653,17 @@ section {
 
 .menu-logos-de-apoio {
     padding: 0;
+    margin: 0 auto;
+    display: inline;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
+
+.logoceeex {
+    margin: 0 auto;
+}
+
 
 .menu-logos-de-apoio-pessoas p {
     color: aliceblue;
@@ -378,7 +676,126 @@ section {
     padding-top: 10px;
 }
 
-.logos-de-apoio .menu3, .palestrantes .menu3, .moderadores .menu3 {
+
+
+@media (max-width: 600px) {
+    .logos-img-pessoas img {
+        max-width: 100%;
+        width: 60px;
+        height: auto;
+    }
+    
+    .logos-img-pessoas {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .menu-logos-de-apoio {
+        padding: 0;
+        margin: 0 auto;
+        display: inline;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo-ceeex img {
+        height: 1px;
+        width: auto;
+        
+    }
+   
+    
+    .menu-logos-de-apoio-pessoas p {
+        color: aliceblue;
+        font-size: 12px;
+        font-weight: 500;
+        text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
+        text-align: justify;
+        font-weight: 200;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .menu3 i {
+        font: 2px;
+    }
+}
+
+.logos-de-apoio-om {
+    display: grid;
+    grid-row: auto;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.logos-de-apoio-om img {
+    margin: 0 auto;
+    width: 150px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.logos-de-apoio-imm img {
+    margin: 0 auto;
+    width: 250px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .logos-de-apoio-om img {
+        margin: 0 auto;
+        width: 80px;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .logos-de-apoio-imm img {
+        margin: 0 auto;
+        width: 250px;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-imm img {
+        display: flex;
+        margin: 0 auto;
+        width: auto;
+        height: 120px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-ceeex img {
+        display: flex;
+        margin: 0 auto;
+        width: auto;
+        height: 80px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-poupex img {
+        display: flex;
+        margin: 0 auto;
+        width: auto;
+        height: 80px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+}
+
+.logos-de-apoio .menu3, .logos-de-apoio-om .menu3, .logos-de-apoio-imm .menu3, .palestrantes .menu3, .moderadores .menu3 {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -386,25 +803,25 @@ section {
     padding: 5px;
 }
 
-.logos-de-apoio .menu3 ul, .palestrantes .menu3 ul, .moderadores .menu3 ul {
+.logos-de-apoio .menu3 ul, .logos-de-apoio-om .menu3 ul, .logos-de-apoio-imm .menu3 ul, .palestrantes .menu3 ul, .moderadores .menu3 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.logos-de-apoio .menu3 i, .palestrantes .menu3 i, .moderadores .menu3 i {
+.logos-de-apoio .menu3 i, .logos-de-apoio-om .menu3 i, .logos-de-apoio-imm .menu3 i, .palestrantes .menu3 i, .moderadores .menu3 i {
     cursor: pointer;
     padding: 5px 15px;
     border: none;
     color: white;
 }
 
-.logos-de-apoio .menu3 i:hover, .palestrantes .menu3 i:hover, .moderadores .menu3 i:hover {
+.logos-de-apoio .menu3 i:hover, .logos-de-apoio-om .menu3 i:hover, .logos-de-apoio-imm .menu3 i:hover, .palestrantes .menu3 i:hover, .moderadores .menu3 i:hover {
     color: #f5c054;
     transition: 0.4s;
 }
 
-.logos-de-apoio .menu3 .icon-small, .palestrantes .menu3 .icon-small, .moderadores .menu3 .icon-small {
+.logos-de-apoio .menu3 .icon-small, .logos-de-apoio-om .menu3 .icon-small, .logos-de-apoio-imm .menu3 .icon-small, .palestrantes .menu3 .icon-small, .moderadores .menu3 .icon-small {
     font-size: 36px;
 }
 
@@ -412,118 +829,12 @@ section {
     font-size: 32px;
 }
 
-.sobre-logo-eceme {
-    align-items: center;
-    justify-content: center;
-    max-width: 500px;
-    padding-top: 50px;
-}
 
-.sobre-logo-imm {
-    align-items: center;
-    justify-content: center;
-    max-width: 500px;
-}
 
-.immsociais {
-    width: 100%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
+/*//////////////////////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////////////////////*/
 
-.immsociaistitulo {
-    width: 100%;
-    text-align: center;
-    margin: 10px;
-}
-
-.immsociaistitulo p {
-    margin: 0 auto;
-    font-size: 20px;
-}
-
-.immiconessociais {
-    width: 100%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-}
-
-.fa-brands.fa-instagram {
-    color: aliceblue;
-    font-size: 88px;
-    cursor: pointer;
-}
-
-.fa-brands.fa-facebook {
-    color: aliceblue;
-    font-size: 75px;
-    cursor: pointer;
-}
-
-.sobre-inline-table-container {
-    display: inline;
-    justify-content: center;
-    align-items: center;
-}
-
-.sobre-inline-table table {
-    width: 100%;
-    height: auto;
-    border-collapse: collapse;
-    color: #f5c054;
-    border: 5px solid #f5c054;
-}
-
-.sobre-inline-table td {
-    vertical-align: middle;
-    border-style: solid none solid solid;
-    border-color: #f5c054;
-    padding: 0.1cm 0cm 0.1cm 0.1cm;
-    text-align: center;
-    font-family: helvetica;
-    font-size: 10pt;
-    color: #f5c054;
-}
-
-.sobre-inline-table td:first-child {
-    width: 55px;
-}
-
-.sobre-inline-table td:nth-child(2) {
-    width: 173px;
-}
-
-.sobre-inline-table td:nth-child(3) {
-    width: 123px;
-}
-
-.sobre-inline-table td:last-child {
-    width: 59px;
-}
-
-.sobre-inline-table p {
-    orphans: 0;
-    widows: 0;
-    text-align: center;
-    color: #f5c054;
-}
-
-.western {
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    text-align: justify;
-    font-weight: 200;
-    text-align: center;
-    padding: 5px;
-}
+/* BOTÃO VOLTAR PARA CIMA */
 
 .btn-voltarcima {
     position: fixed;
@@ -550,6 +861,9 @@ section {
 
 
 .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #011820;
     text-align: center;
     color: white;
@@ -561,4 +875,33 @@ section {
     text-align: justify;
     font-weight: 200;
     text-align: center;
+}
+
+/* Media queries para ajustes específicos em diferentes tamanhos de tela */
+
+@media screen and (max-width: 700px) {
+    .h2-sobre {
+        color: aliceblue;
+        font-size: 3.2vw; /* Ajustado para uma fonte maior e responsiva */
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #011820;
+        text-align: center;
+        color: white;
+        padding: 20px;
+        color: aliceblue;
+        font-size: 12px;
+        font-weight: 500;
+        text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
+        text-align: justify;
+        font-weight: 200;
+        text-align: center;
+    }
+       
 }
