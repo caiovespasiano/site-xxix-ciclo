@@ -1,801 +1,651 @@
-@media only screen and (max-width: 600px) {
-    header, body {
-        min-width: auto;
-        padding-left: 0px;
-        padding-top: 0px;
-    }
+/* ==========================================================================
+   XXIX Ciclo de Estudos Estratégicos
+
+   A estrutura visual e os nomes de classe foram preservados do site
+   original. As correções são de implementação, não de design.
+   ========================================================================== */
+
+/* ---------- Tokens ---------------------------------------------------- */
+
+:root {
+  --gold: #f5c054;
+  --green: #002533;
+  --green-dark: #011820;
+  --alice: aliceblue;
+
+  /* Teto de largura. Sem ele o texto chegava a 274 caracteres por linha;
+     o confortável fica entre 60 e 90. */
+  --largura: 90%;
+  --largura-max: 1120px;
+
+  --fonte: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- Reset e base --------------------------------------------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    scroll-behavior: smooth
 }
 
+body {
+    min-height: 100vh;
+    font-family: var(--fonte);
+    font-weight: 300;
+    color: var(--alice);
+    overflow-x: hidden;
+}
 
 html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
-@media (min-width: 768px) {
-    body {
-        background: url(https://cdn.discordapp.com/attachments/1242610729824288788/1242610872707190865/background.png?ex=664e770e&is=664d258e&hm=a82264828381d04ad2ff48683c20803e40819dcb9ad47536256d4227ea8287b3&);
-        background-color: #002533;
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-    }
-}
-
-@media (max-width: 767px) {
-    body {
-        background: url(https://cdn.discordapp.com/attachments/1242610729824288788/1242610872707190865/background.png?ex=664e770e&is=664d258e&hm=a82264828381d04ad2ff48683c20803e40819dcb9ad47536256d4227ea8287b3&);
-        background-color: #002533;
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-    }
-}
-
-@media (max-width: 1200px) {
-    body {
-        background: url(https://cdn.discordapp.com/attachments/1242610729824288788/1242610872707190865/background.png?ex=664e770e&is=664d258e&hm=a82264828381d04ad2ff48683c20803e40819dcb9ad47536256d4227ea8287b3&);
-        background-color: #002533;
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-    }
-}
-
-.container {
+img,
+svg {
     display: block;
+    max-width: 100%;
 }
 
-.section {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%; /* Ou qualquer largura desejada */
-  }
-
-/* Works on Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #f5c054 transparent;
+img {
+    height: auto;
 }
-  
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
+
+ul {
+    list-style: none;
+}
+
+/* Foco visível apenas para navegação por teclado. */
+:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+::selection {
+    background: var(--gold);
+    color: var(--green-dark);
+}
+
+/* Barra de rolagem no html, não em * (o original pintava a página toda). */
+@supports (scrollbar-color: auto) {
+    html {
+        scrollbar-color: rgb(245 192 84 / 50%) var(--green-dark);
+    }
+}
+
+html::-webkit-scrollbar {
     width: 12px;
 }
-  
-  *::-webkit-scrollbar-track {
-    background: #f5c054;
+
+html::-webkit-scrollbar-track {
+    background: var(--green-dark);
 }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: #f5c054;
+
+html::-webkit-scrollbar-thumb {
+    background-color: rgb(245 192 84 / 45%);
+    border: 3px solid var(--green-dark);
     border-radius: 20px;
-    border: 3px solid #f5c054;
 }
 
-/* TOPO DO SITE */
+html::-webkit-scrollbar-thumb:hover {
+    background-color: var(--gold);
+}
 
+/* ---------- Utilitários ---------------------------------------------- */
+
+.skip-link {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--green-dark);
+    background: var(--gold);
+    border-radius: 0 0 12px 12px;
+    transform: translate(-50%, -110%);
+    transition: transform 0.2s ease;
+}
+
+.skip-link:focus-visible {
+    transform: translate(-50%, 0);
+}
+
+/* Bootstrap Icons é fonte: o tamanho vem de `font-size`. */
+.bi {
+    display: inline-block;
+    line-height: 1;
+}
+
+/* ---------- Fundo ------------------------------------------------------
+   Duas camadas fixas: gradiente base (garante contraste mesmo sem a
+   imagem) + o mapa, ancorado na viewport para acompanhar a rolagem. */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+body::before {
+    z-index: -2;
+    background: linear-gradient(180deg, #01404a 0%, var(--green) 45%, var(--green-dark) 100%);
+}
+
+/* Panorama 16:9 recortado da faixa do mapa: `cover` preenche sem ampliar
+   demais (era o que escondia o mapa atrás da parte lisa da imagem). */
+body::after {
+    z-index: -1;
+    background-image: url("source/img/background.webp");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0.42;
+}
+
+/* Em tela em pé, `cover` ampliaria o mapa até ficar ilegível. */
+@media (max-aspect-ratio: 1/1) {
+    body::after {
+        background-size: 100% auto;
+        opacity: 0.34;
+    }
+}
+
+/* ---------- Container -------------------------------------------------- */
+
+/* Ponto único de controle da largura: todo o conteúdo vive dentro daqui. */
+.container {
+    display: block;
+    width: 100%;
+    max-width: var(--largura-max);
+    margin-inline: auto;
+}
+
+/* ---------- TOPO DO SITE ----------------------------------------------- */
 
 .distintivostopo {
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    padding: 20px; /* Adiciona espaço ao redor */
-    margin-bottom: 0px; /* Adiciona margem inferior */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
     margin-top: 45px;
 }
 
 .logos-container {
     display: flex;
     align-items: center;
-    gap: 40px; /* Espaçamento entre os elementos */
+    gap: clamp(10px, 2.8vw, 40px);
 }
 
 .logoeb,
 .logog20 {
-    max-height: 140px; /* Limite máximo de altura para garantir responsividade */
-    height: auto; /* Mantém a proporção da imagem */
     width: auto;
+    height: auto;
+    max-height: clamp(56px, 9.7vw, 140px);
 }
 
 .linhadivisoriatopo {
-    height: 160px; /* Alinha a altura com os logos */
-    border-left: 3px solid #ffffff;
+    height: clamp(90px, 11vw, 160px);
+    border-left: 2px solid #ffffff;
     opacity: 0.2;
 }
 
-/* Media query para telas menores */
-@media (max-width: 600px) {
-    .logos-container {
-        gap: 10px; /* Reduz o espaçamento entre os elementos */
-        margin-bottom: 0px; /* Adiciona margem inferior */
-
-    }
-
-    .logoeb,
-    .logog20 {
-        max-height: 80px; /* Reduz o tamanho máximo dos logos */
-    }
-
-    .linhadivisoriatopo {
-        height: 100px; /* Ajusta a altura da linha divisória */
-        border-left: 2px solid #ffffff; /* Reduz a espessura da linha */
-    }
-}
-
-@media (max-width: 1200px) {
-    .logos-container {
-        gap: 10px; /* Reduz o espaçamento entre os elementos */
-        margin-bottom: 0px; /* Adiciona margem inferior */
-
-    }
-
-    .logoeb,
-    .logog20 {
-        max-height: 80px; /* Reduz o tamanho máximo dos logos */
-    }
-
-    .linhadivisoriatopo {
-        height: 100px; /* Ajusta a altura da linha divisória */
-        border-left: 2px solid #ffffff; /* Reduz a espessura da linha */
-    }
-}
-
 .container-titulos {
-    display: block; /* Faz o elemento quebrar linha */
+    display: block;
 }
 
 .container-subtitulo {
     margin: 1vw auto 5vw;
 }
 
+/* line-height: 0 é do original: é o que cola as duas linhas do subtítulo. */
 .container-subtitulo span {
+    display: block;
     font-weight: 600;
     line-height: 0;
-    display: block;
-    text-align: center; /* Alinhar o texto ao centro */
+    text-align: center;
 }
 
-h1, h2 {
-    text-align: center;
-    color: aliceblue;
-    text-transform: uppercase;
-    padding-top: 2vw; /* Espaçamento superior */
-    color: #f5c054;
+h1,
+h2 {
+    padding-top: 2vw;
     font-style: normal;
-    text-shadow: 2px 2px 275px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-shadow: 2px 2px 275px rgb(0 0 0 / 50%);
+    line-height: 1;
 }
 
 h1 {
-    font-size: 5.2vw; /* Tamanho de fonte relativo à largura da tela */
-    line-height: 1;
+    font-size: clamp(2rem, 5.2vw, 5.2rem);
 }
 
 h2 {
-    font-size: 2.5vw; /* Tamanho de fonte relativo à largura da tela */
-    line-height: 1;
+    font-size: clamp(1rem, 2.5vw, 2.5rem);
+}
+
+/* Quebra o título em três linhas. Eram <div>; agora <span>, que é válido
+   dentro de <h1>, mantendo os mesmos nomes de classe. */
+.container-titulos2,
+.container-titulos3 {
+    display: block;
+}
+
+/* inline-block: transform não se aplica a inline, então "XXIX" e "Ciclo"
+   só desvaneceriam, sem descer. */
+.ciclotitulo1a,
+.ciclotitulo {
+    display: inline-block;
 }
 
 .ciclotitulo1a {
     font-weight: 800;
-    width: auto;
-    height: 70%;
 }
 
 .ciclotitulo {
     font-weight: 600;
-    margin: 0;
-    width: auto;
-    height: 70%;
 }
 
-/* Media query para telas menores */
-@media (max-width: 600px) {
-    .container-titulos {
-        gap: 10px; /* Reduz o espaçamento entre os contêineres de título */
-        margin-bottom: 10px; /* Adiciona margem inferior */
-    }
-
-    .container-titulo {
-        text-align: center; /* Centraliza o texto dos títulos */
-    }
-
-    .container-subtitulo {
-        text-align: center; /* Centraliza o texto dos subtítulos */
-        margin: 1em auto 1em;
-    }
-
-    .ciclotitulo1a {
-        font-size: 1.5em; /* Ajusta o tamanho da fonte do primeiro título */
-    }
-
-    .ciclotitulo {
-        font-size: 1.5em; /* Ajusta o tamanho da fonte dos demais títulos */
-    }
-}
-
-@media (max-width: 1200px) {
-    .container-titulos {
-        gap: 10px; /* Reduz o espaçamento entre os contêineres de título */
-        margin-bottom: 10px; /* Adiciona margem inferior */
-    }
-
-    .container-titulo {
-        text-align: center; /* Centraliza o texto dos títulos */
-    }
-
-    .container-subtitulo {
-        text-align: center; /* Centraliza o texto dos subtítulos */
-        margin: 1em auto 1em;
-    }
-
-    .ciclotitulo1a {
-        font-size: 1.5em; /* Ajusta o tamanho da fonte do primeiro título */
-    }
-
-    .ciclotitulo {
-        font-size: 1.5em; /* Ajusta o tamanho da fonte dos demais títulos */
-    }
-}
-
-
-.container-geral{
-    display: inline;
-    justify-content: center;
-    align-items: center;
-}
+/* ---------- Botões ------------------------------------------------------ */
 
 .btn-geral {
     display: flex;
     justify-content: center;
-    margin: 2vw auto 5.5vw; /* Espaçamento superior e inferior em relação à largura da tela */
+    margin: 2vw auto 5.5vw;
 }
 
 .btn-geral a {
-    font-size: 1.1vw; /* Tamanho de fonte relativo à largura da tela */
+    display: inline-block;
+    padding: 0.55rem 1.5rem;
+    font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+    font-weight: 500;
+    line-height: 1.4;
     text-decoration: none;
-    cursor: pointer;
-    padding: 0.25vw 1vw; /* Espaçamento interno em relação à largura da tela */
-    border-radius: 2vw; /* Raio do border-radius em relação à largura da tela */
-    border: none;
     color: white;
-    background-color: #f5c054;
+    background-color: var(--gold);
+    border-radius: 999px;
+    transition: background-color 0.4s, color 0.4s;
 }
 
 .btn-geral a:hover {
-    color: #f5c054;
+    color: var(--gold);
     background-color: white;
-    transition: 0.4s;
 }
 
-/* Media query para telas menores */
-@media (max-width: 600px) {
-    .btn-geral a {
-        font-size: 2vw; /* Tamanho de fonte responsivo */
-        padding: 1vw 3vw; /* Espaçamento interno responsivo */
-        border-radius: 10vw; /* Raio do border-radius responsivo */
-    }
-}
+/* ---------- Linhas divisórias ------------------------------------------ */
 
-@media (max-width: 1200px) {
-    .btn-geral a {
-        font-size: 2.5vw; /* Tamanho de fonte responsivo */
-        padding: 0.3vw 1vw; /* Espaçamento interno responsivo */
-        border-radius: 10vw; /* Raio do border-radius responsivo */
-    }
-}
-
-/* LINHAS DIVISÓRIAS GERAIS */
-
+/* `opacity: 20%` era inválido e o navegador descartava a regra, deixando
+   estas linhas brancas e opacas. */
 .linhadivisoriabody {
     display: block;
-    position: relative;
+    width: var(--largura);
+    max-width: var(--largura-max);
+    height: 2px;
     margin: 35px auto;
-    width: 90%;
-    max-width: 1800px;
-    height: 5px;
+    border: 0;
     background-color: #ffffff;
-    opacity: 20%;
+    opacity: 0.25;
 }
 
 .linhadivisoriabody-realizacao {
     display: block;
-    position: relative;
+    width: var(--largura);
+    height: 2px;
     margin: 15px auto;
-    width: 90%;
-    height: 5px;
+    border: 0;
     background-color: #ffffff;
-    opacity: 20%;
+    opacity: 0.25;
 }
 
+/* Mesma largura do menu3 logo abaixo (100% do cartão). */
 .linhadivisoriasociais {
     display: block;
-    position: relative;
+    width: 100%;
+    height: 2px;
     margin: 15px auto;
-    width: 50%;
-    height: 5px;
     background-color: #ffffff;
-    opacity: 20%;
+    opacity: 0.25;
+}
+
+/* Títulos de seção. Eram <p class="h2-sobre"> dentro de uma div; agora são
+   <h2>/<h3> reais, sem o padding-top e line-height globais de h1/h2. */
+.linhadivisoriatexto,
+.linhadivisoriatexto-2 {
+    display: flex;
+    justify-content: center;
+    width: var(--largura);
+    padding-top: 0;
+    text-align: center;
+    font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+    font-weight: 600;
+    line-height: normal;
+    color: var(--alice);
+    text-shadow: 0.2vw 0.2vw 4vw rgb(0 0 0 / 50%);
 }
 
 .linhadivisoriatexto {
-    display: flex;
-    position: relative;
     margin: 15px auto;
-    width: 90%;
-    text-align: center;
 }
 
 .linhadivisoriatexto-2 {
-    display: flex;
-    position: relative;
     margin: 45px auto;
-    width: 90%;
-    text-align: center;
 }
 
-
-/*//////////////////////////////////////////////////////////////////*/
-/*//////////////////////////////////////////////////////////////////*/
-
-/* SOBRE O XXIX CICLO DE ESTUDOS ESTRATÉGICOS */
+/* ---------- SOBRE O XXIX CICLO ------------------------------------------ */
 
 .sobre {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    width: var(--largura);
     margin: 0 auto;
 }
 
+/* PNG transparente, sem fundo, como no original. */
 .sobre-logo-ciclo {
-    max-width: 30%; /* Alterado para 100% para se ajustar à largura da tela */
+    max-width: 30%;
     margin: 0 auto;
-    padding: 5vw; /* Utilizei vw para tornar o padding responsivo */
+    padding: 4vw;
 }
 
 .sobre-o-ciclo {
     width: 100%;
-    text-align: center;
     line-height: 1.5;
+    text-align: center;
 }
 
+/* Eram <p> no original; ao virar <h2>/<h3> precisam neutralizar o
+   padding-top e o line-height globais dos títulos. */
 .h1-sobre {
-    color: aliceblue;
-    font-size: 1.8vw; /* Ajustado para uma fonte maior e responsiva */
-    font-weight: 700;
-    text-shadow: 0.2vw 0.2vw 4vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
-    text-transform: uppercase;
     width: 100%;
+    padding-top: 0;
+    font-size: clamp(1rem, 1.8vw, 1.8rem);
+    font-weight: 700;
+    line-height: inherit;
+    text-transform: uppercase;
+    color: var(--alice);
+    text-shadow: 0.2vw 0.2vw 4vw rgb(0 0 0 / 50%);
 }
 
 .h2-sobre {
-    color: aliceblue;
-    font-size: 1.2vw; /* Ajustado para uma fonte maior e responsiva */
+    width: 100%;
+    font-size: clamp(0.85rem, 1.2vw, 1.2rem);
     font-weight: 600;
-    width: 100%;
-    text-shadow: 0.2vw 0.2vw 4vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    color: var(--alice);
+    text-shadow: 0.2vw 0.2vw 4vw rgb(0 0 0 / 50%);
 }
 
+/* Único bloco com teto próprio: dentro dos 1008px úteis o texto dava 127
+   caracteres por linha. 44rem deixa ~85. */
 .h3-sobre {
-    color: aliceblue;
-    font-size: 1vw; /* Ajustado para uma fonte maior e responsiva */
-    font-weight: 300;
     width: 100%;
+    max-width: 44rem;
     margin: 1vw auto;
-    text-shadow: 0.2vw 0.2vw 4vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+    font-size: clamp(0.85rem, 1vw, 1.05rem);
+    font-weight: 300;
+    color: var(--alice);
+    text-shadow: 0.2vw 0.2vw 4vw rgb(0 0 0 / 50%);
+    /* Só o texto corrido é justificado. Títulos e nomes ficam centralizados:
+       em duas ou três palavras a justificação abriria buracos. */
+    text-align: justify;
+    /* Sem hifenização: "so-bre temas" não é aceitável em texto
+       institucional. A palavra inteira desce para a linha seguinte. */
+    hyphens: manual;
 }
-
 
 @media (max-width: 600px) {
     .sobre {
-        flex-direction: column; /* Altera para coluna em telas menores */
-        align-items: center; /* Centraliza os itens na coluna */
-        width: 85%; /* Utiliza toda a largura disponível */
+        width: 85%;
     }
 
     .sobre-logo-ciclo {
-        max-width: 40%; /* Ajusta a largura máxima para ocupar toda a largura da tela */
-        margin: 0 auto;
-        padding: 5vw; /* Utilizei vw para tornar o padding responsivo */
-    }
-
-    .sobre-o-ciclo {
-        width: 100%;
-        text-align: center;
-        line-height: 1.5;
-    }
-
-    .h1-sobre {
-        font-size: 4vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
-        font-weight: 700;
-        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
-        text-transform: uppercase;
-    }
-
-    .h2-sobre {
-        font-size: 2.3vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
-        font-weight: 600;
-        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
-    }
-
-    .h3-sobre {
-        font-size: 2vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
-        font-weight: 300;
-        margin: 1vw auto;
-        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
+        max-width: 45%;
+        padding: 6vw;
     }
 }
 
-
-
-/*//////////////////////////////////////////////////////////////////*/
-/*//////////////////////////////////////////////////////////////////*/
-
-/* MODERADORES E PALESTRANTES*/
-
+/* ---------- MODERADORES E PALESTRANTES ---------------------------------- */
 
 .sobre-inline {
-    width: 90%;
+    width: var(--largura);
     height: auto;
     margin: 0 auto;
 }
-
-.logos-de-apoio {
-    display: grid;
-    grid-row: auto;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.sobre-logos-apoio,.sobre-logos-apoio-pessoas-2-colunas, .sobre-logos-apoio-pessoas-3-colunas, .sobre-logos-apoio-pessoas-4-colunas {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Espaço entre os elementos */
-    margin-top: 20px;
-}
-
-.moderadores, .palestrantes {
-    flex: 0 1 calc(20% - 10px); /* Define a largura de cada moderador com espaço entre eles */
-    margin-bottom: 20px; /* Espaçamento entre as linhas */
-    margin-top: 20px; /* Espaçamento entre as linhas */
-}
-
-@media screen and (max-width: 900px) {
-    .moderadores, .palestrantes {
-        flex: 0 1 calc(50% - 20px); /* Quando a largura da tela for menor, 2 moderadores por linha */
-    }
-
-    .linhadivisoriasociais {
-        display: block;
-        position: relative;
-        margin: 15px auto;
-        width: 50%;
-        height: 5px;
-        background-color: #ffffff;
-        opacity: 20%;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .moderadores, .palestrantes {
-        flex: 0 2 calc(40% - 20px); /* Quando a largura da tela for ainda menor, 1 moderador por linha */
-    }
-
-    .linhadivisoriasociais {
-        display: block;
-        position: relative;
-        margin: 15px auto;
-        width: 50%;
-        height: 5px;
-        background-color: #ffffff;
-        opacity: 20%;
-    }
-}
-
-
-.logos-de-apoio p, .palestrantes p, .moderadores p {
-    color: aliceblue;
-    font-size: 16px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    text-align: justify;
-    font-weight: 200;
-    text-align: center;
-    padding-top: 10px;
-}
-
-
-
-/*//////////////////////////////////////////////////////////////////*/
-/*//////////////////////////////////////////////////////////////////*/
-
-/* SOBRE O IMM E A ECEME */
-
-
-
-
-.sobre-imm, .sobre-eceme{
-    display: flex;
-    flex-direction: column;
-    column-count: 2;
-    align-items: center;
-    text-align: center;
-}
-
-
-.realizacaoimm p {
-    color: #c9fff2;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 100%;
-    padding-top: 20px;
-}
-
-.sobre-logo-cont {
-    display: flex;
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    margin-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-}
-
-.sobre-logo-imm {
-    width: 350px; /* Largura automática */
-    height: auto;
-}
-
-.sobre-logo-eceme{
-    width: 150px; /* Largura automática */
-    height: auto;
-}
-
-
-.sobre-o-ciclo{
-    width: 100%;
-    height: 90%;
-}
-
-@media (max-width: 600px) {
-    .sobre-imm, .sobre-eceme {
-        flex-direction: column; /* Altera para coluna em telas menores */
-        align-items: center; /* Centraliza os itens na coluna */
-        width: 85%; /* Utiliza toda a largura disponível */
-    }
-
-    .sobre-logo-ciclo {
-        max-width: 40%; /* Ajusta a largura máxima para ocupar toda a largura da tela */
-        margin: 0 auto;
-        padding: 5vw; /* Utilizei vw para tornar o padding responsivo */
-    }
-
-    .sobre-o-ciclo {
-        width: 100%;
-        text-align: center;
-        line-height: 1.5;
-    }
-
-    .h1-sobre {
-        font-size: 4vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
-        font-weight: 700;
-        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
-        text-transform: uppercase;
-    }
-
-    .h2-sobre {
-        font-size: 2.3vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
-        font-weight: 600;
-        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
-    }
-
-    .h3-sobre {
-        font-size: 2vw; /* Ajusta o tamanho da fonte para uma fonte maior e responsiva */
-        font-weight: 300;
-        margin: 1vw auto;
-        text-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.5); /* Sombreamento de texto responsivo */
-    }
-
-    .sobre-logo-imm {
-        width: 200px; /* Largura automática */
-        height: auto;
-    }
-    
-    .sobre-logo-eceme{
-        width: 80px; /* Largura automática */
-        height: auto;
-    }
-}
-
-/*//////////////////////////////////////////////////////////////////*/
-/*//////////////////////////////////////////////////////////////////*/
-
-/* LOGOS REALIZAÇÃO E APOIO */
-
 
 .sobre-logos-apoio {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 40px 80px;
     padding: 10px;
+    margin-top: 20px;
     margin-bottom: 30px;
-    gap: 80px;
 }
 
+/* As duas classes finalmente fazem o que o nome diz. */
+.sobre-logos-apoio-pessoas-3-colunas,
+.sobre-logos-apoio-pessoas-4-colunas {
+    display: grid;
+    gap: 20px;
+    justify-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
 
-.logos-img-pessoas img {
-    max-width: 100%;
-    width: 100px;
-    height: auto;
+.sobre-logos-apoio-pessoas-3-colunas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sobre-logos-apoio-pessoas-4-colunas {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1000px) {
+    .sobre-logos-apoio-pessoas-4-colunas {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .sobre-logos-apoio-pessoas-3-colunas,
+    .sobre-logos-apoio-pessoas-4-colunas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .sobre-logos-apoio-pessoas-3-colunas,
+    .sobre-logos-apoio-pessoas-4-colunas {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.moderadores,
+.palestrantes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .logos-img-pessoas {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.logos-img-pessoas img {
+    width: 100px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.moderadores p,
+.palestrantes p {
+    padding-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--alice);
+    text-shadow: 2px 2px 45px rgb(0 0 0 / 50%);
+}
+
+.menu-logos-de-apoio-pessoas {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Divisória e ícone na base do cartão: os nomes quebram em 1, 2 ou 3 linhas
+   e, colados abaixo do nome, deixavam cada cartão numa altura. */
+.menu-logos-de-apoio-pessoas .linhadivisoriasociais {
+    margin-top: auto;
+}
+
+.menu-logos-de-apoio-pessoas p {
+    padding-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--alice);
+    text-shadow: 2px 2px 45px rgb(0 0 0 / 50%);
+}
+
+/* ---------- SOBRE O IMM E A ECEME --------------------------------------- */
+
+.sobre-imm,
+.sobre-eceme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.sobre-logo-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.sobre-logo-imm {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+}
+
+.sobre-logo-eceme {
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 900px) {
+    .sobre-imm,
+    .sobre-eceme {
+        width: 85%;
+        margin-inline: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .sobre-logo-imm {
+        width: 200px;
+    }
+
+    .sobre-logo-eceme {
+        width: 110px;
+    }
+}
+
+/* ---------- LOGOS DE REALIZAÇÃO E APOIO --------------------------------- */
+
+.logos-de-apoio-om,
+.logos-de-apoio-imm,
+.logos-de-apoio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Os distintivos têm proporções muito diferentes (escudos verticais de
+   150x208, IMM horizontal de 324x209). A caixa de altura fixa com
+   `object-fit: contain` alinha nome, divisória e ícones. */
+.logos-de-apoio-om img,
+.logos-de-apoio-imm .logo-imm img,
+.logo-ceeex img,
+.logo-poupex img {
+    width: 100%;
+    max-width: 13rem;
+    height: 12rem;
+    object-fit: contain;
+}
+
+/* Largura igual por item, para o espaçamento e as divisórias ficarem
+   regulares. Só nas listas: os blocos de texto são <div>.
+   4 x 12.5rem + 3 x 40px = 920px, cabe nos 1008px úteis. */
+.sobre-logos-apoio > li {
+    flex: 0 1 12.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.sobre-logos-apoio {
+    gap: 30px 40px;
+}
+
+@media (max-width: 600px) {
+    .logos-de-apoio-om img,
+    .logos-de-apoio-imm .logo-imm img,
+    .logo-ceeex img,
+    .logo-poupex img {
+        max-width: 10rem;
+        height: 9rem;
+    }
 }
 
 .menu-logos-de-apoio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
     padding: 0;
-    margin: 0 auto;
-    display: inline;
-    justify-content: center;
-    align-items: center;
     text-align: center;
 }
 
-.logoceeex {
-    margin: 0 auto;
+.menu-logos-de-apoio .h2-sobre {
+    width: auto;
+    font-weight: 600;
+    letter-spacing: 0.06em;
 }
 
+/* ---------- ÍCONES E LINKS SOCIAIS -------------------------------------- */
 
-.menu-logos-de-apoio-pessoas p {
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    text-align: justify;
-    font-weight: 200;
-    text-align: center;
-    padding-top: 10px;
-}
-
-
-
-@media (max-width: 600px) {
-    .logos-img-pessoas img {
-        max-width: 100%;
-        width: 60px;
-        height: auto;
-    }
-    
-    .logos-img-pessoas {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .menu-logos-de-apoio {
-        padding: 0;
-        margin: 0 auto;
-        display: inline;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .logo-ceeex img {
-        height: 1px;
-        width: auto;
-        
-    }
-   
-    
-    .menu-logos-de-apoio-pessoas p {
-        color: aliceblue;
-        font-size: 12px;
-        font-weight: 500;
-        text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-        text-align: justify;
-        font-weight: 200;
-        text-align: center;
-        padding-top: 10px;
-    }
-
-    .menu3 i {
-        font: 2px;
-    }
-}
-
-.logos-de-apoio-om {
-    display: grid;
-    grid-row: auto;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.logos-de-apoio-om img {
-    margin: 0 auto;
-    width: 150px;
-    height: auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.logos-de-apoio-imm img {
-    margin: 0 auto;
-    width: 250px;
-    height: auto;
-    justify-content: center;
-    align-items: center;
-}
-
-@media (max-width: 600px) {
-    .logos-de-apoio-om img {
-        margin: 0 auto;
-        width: 80px;
-        height: auto;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .logos-de-apoio-imm img {
-        margin: 0 auto;
-        width: 250px;
-        height: auto;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .logo-imm img {
-        display: flex;
-        margin: 0 auto;
-        width: auto;
-        height: 120px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .logo-ceeex img {
-        display: flex;
-        margin: 0 auto;
-        width: auto;
-        height: 80px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .logo-poupex img {
-        display: flex;
-        margin: 0 auto;
-        width: auto;
-        height: 80px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    
-}
-
-.logos-de-apoio .menu3, .logos-de-apoio-om .menu3, .logos-de-apoio-imm .menu3, .palestrantes .menu3, .moderadores .menu3 {
+.menu3 {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -803,105 +653,140 @@ h2 {
     padding: 5px;
 }
 
-.logos-de-apoio .menu3 ul, .logos-de-apoio-om .menu3 ul, .logos-de-apoio-imm .menu3 ul, .palestrantes .menu3 ul, .moderadores .menu3 ul {
-    list-style-type: none;
-    padding: 0;
+.menu3 ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
     margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
-.logos-de-apoio .menu3 i, .logos-de-apoio-om .menu3 i, .logos-de-apoio-imm .menu3 i, .palestrantes .menu3 i, .moderadores .menu3 i {
-    cursor: pointer;
-    padding: 5px 15px;
-    border: none;
+.icon-link {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
     color: white;
+    border: 1px solid rgb(255 255 255 / 25%);
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.logos-de-apoio .menu3 i:hover, .logos-de-apoio-om .menu3 i:hover, .logos-de-apoio-imm .menu3 i:hover, .palestrantes .menu3 i:hover, .moderadores .menu3 i:hover {
-    color: #f5c054;
-    transition: 0.4s;
+/* line-height para o glifo não deslocar o botão. */
+.icon-link .bi {
+    line-height: 1;
 }
 
-.logos-de-apoio .menu3 .icon-small, .logos-de-apoio-om .menu3 .icon-small, .logos-de-apoio-imm .menu3 .icon-small, .palestrantes .menu3 .icon-small, .moderadores .menu3 .icon-small {
-    font-size: 36px;
+.icon-link:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    background-color: rgb(255 255 255 / 10%);
+}
+
+/* As duas variações de tamanho do original. */
+.icon-small {
+    font-size: 1.25rem;
 }
 
 .icon-small2 {
-    font-size: 32px;
+    font-size: 1.1rem;
 }
 
-
-
-/*//////////////////////////////////////////////////////////////////*/
-/*//////////////////////////////////////////////////////////////////*/
-
-/* BOTÃO VOLTAR PARA CIMA */
+/* ---------- BOTÃO VOLTAR PARA O TOPO ------------------------------------ */
 
 .btn-voltarcima {
     position: fixed;
-    bottom: 20px;
     right: 20px;
+    bottom: 20px;
+    z-index: 40;
 }
 
-.btn-voltarcima a {
-    font-size: 20px;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 12px 20px;
-    border-radius: 40px;
-    border: none;
+.btn-voltarcima button {
+    display: grid;
+    place-items: center;
+    width: 2.9rem;
+    height: 2.9rem;
+    padding: 0;
     color: white;
-    background-color: #f5c054;
+    background-color: var(--gold);
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s,
+        background-color 0.3s, color 0.3s;
 }
 
-.btn-voltarcima a:hover {
-    color: #f5c054;
+.btn-voltarcima button.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.btn-voltarcima button:hover {
+    color: var(--gold);
     background-color: white;
-    transition: 0.4s;
 }
 
+.btn-voltarcima .bi {
+    font-size: 1.15rem;
+}
+
+/* ---------- RODAPÉ -------------------------------------------------------- */
 
 .footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #011820;
-    text-align: center;
-    color: white;
     padding: 20px;
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: 500;
-    text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-    text-align: justify;
-    font-weight: 200;
+    margin-top: 40px;
+    font-size: 0.85rem;
+    font-weight: 300;
     text-align: center;
+    color: var(--alice);
+    background-color: var(--green-dark);
+    text-shadow: 2px 2px 45px rgb(0 0 0 / 50%);
 }
 
-/* Media queries para ajustes específicos em diferentes tamanhos de tela */
+/* ---------- REVELAÇÃO POR ROLAGEM -----------------------------------------
+   Substitui o ScrollReveal. Sob `.js` para que, sem JavaScript, nenhum
+   conteúdo fique invisível. Desce de cima para o lugar. */
 
-@media screen and (max-width: 700px) {
-    .h2-sobre {
-        color: aliceblue;
-        font-size: 3.2vw; /* Ajustado para uma fonte maior e responsiva */
-        font-weight: 600;
-        width: 100%;
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(-16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ---------- PREFERÊNCIAS DE MOVIMENTO ------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 
-    .footer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #011820;
-        text-align: center;
-        color: white;
-        padding: 20px;
-        color: aliceblue;
-        font-size: 12px;
-        font-weight: 500;
-        text-shadow: 2px 2px 45px rgba(0, 0, 0, 0.5);
-        text-align: justify;
-        font-weight: 200;
-        text-align: center;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
-       
+
+    .js [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+
+    .btn-voltarcima button {
+        transition: none;
+    }
 }

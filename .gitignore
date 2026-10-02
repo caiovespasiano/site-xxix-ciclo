@@ -1,0 +1,6 @@
+# Capturas geradas por tools/preview.py
+preview/
+
+# Python
+__pycache__/
+*.py[cod]
